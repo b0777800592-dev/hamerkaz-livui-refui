@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# המרכז לליווי רפואי בישראל
 
-## Getting Started
+פלטפורמת SaaS לניהול תהליכי ליווי רפואי. המוצר הראשון: ליווי בתחום קנאביס רפואי.
 
-First, run the development server:
+## Stack
+
+- **Frontend:** Next.js 15 App Router, Tailwind CSS, shadcn/ui, Framer Motion
+- **Backend:** Supabase (Postgres + Auth + Storage + RLS)
+- **AI:** OpenAI API
+- **Deployment:** Vercel + Supabase
+
+## Setup
 
 ```bash
+npm install
+cp .env.example .env.local
+# Fill in your Supabase and OpenAI keys
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Database
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Run migrations in Supabase SQL editor in order:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+supabase/migrations/001_initial_schema.sql
+supabase/migrations/002_rls.sql
+supabase/migrations/003_seed.sql
+```
 
-## Learn More
+## Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+  app/
+    (marketing)/     Public pages
+    (auth)/          Login/register
+    (portal)/        Customer portal
+    (admin)/         CRM + case management
+    (partner)/       Partner portal
+    api/             API routes
+    eligibility/     Eligibility questionnaire
+  components/
+    ui/              shadcn components
+    forms/           Multi-step forms
+    marketing/       Marketing components
+    admin/           CRM tables, kanban
+  lib/
+    supabase/        client / server / admin
+    auth/            Role guards
+    ai/              OpenAI prompts
+    pdf/             Report generation
+    seo/             Metadata and schema
+  types/             TypeScript types
+supabase/
+  migrations/        SQL migrations + RLS
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Development Phases
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Phase | Scope | Status |
+|-------|-------|--------|
+| 0 | Setup, DB schema, auth, design system | ✅ Done |
+| 1 | Eligibility questionnaire + PDF report | ✅ Done |
+| 2 | Admin CRM + Case Management + Customer Portal | 🔜 Next |
+| 3 | AI Document Analyzer + automations | 🔜 |
+| 4 | Partner Portal + analytics | 🔜 |
+| 5 | SEO content engine + 50+ pages | 🔜 |
 
-## Deploy on Vercel
+## Disclaimer
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+המערכת אינה מוכרת קנאביס, אינה מעניקה ייעוץ רפואי, ואינה מבטיחה אישור.
