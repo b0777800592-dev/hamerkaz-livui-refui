@@ -1,5 +1,8 @@
+export const dynamic = 'force-dynamic'
+
 import { requireAuth } from '@/lib/auth/guards'
 import { createClient } from '@/lib/supabase/server'
+import { redirect } from 'next/navigation'
 
 export default async function PortalPage() {
   const user = await requireAuth()
@@ -11,9 +14,8 @@ export default async function PortalPage() {
     .eq('id', user.id)
     .single()
 
-  // Redirect staff to admin
-  if (profile?.role && ['admin', 'super_admin', 'sales_agent', 'case_manager', 'medical_coordinator'].includes(profile.role)) {
-    const { redirect } = await import('next/navigation')
+  const staffRoles = ['admin', 'super_admin', 'sales_agent', 'case_manager', 'medical_coordinator']
+  if (profile?.role && staffRoles.includes(profile.role)) {
     redirect('/admin')
   }
 
