@@ -1,0 +1,14 @@
+{
+  "name": "me-lookup",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "description": "Manual-assisted phone -> name lookup on Me Web (https://web.me.app) using Playwright, through the real browser UI only. No private API, no CAPTCHA bypass, no rate-limit circumvention.",
+  "scripts": {
+    "start": "node lookup.js",
+    "lookup": "node lookup.js"
+  },
+  "dependencies": {
+    "playwright": "^1.48.0"
+  }
+}

@@ -1,0 +1,6 @@
+node_modules/
+me-profile/
+results.partial.json
+me_results.csv
+me_results.json
+*.log
